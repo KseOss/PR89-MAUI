@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PR8_MAUI.MainPageFiles"
+             Title="Файлы">
+
+    <ScrollView>
+        <StackLayout Padding="20">
+
+            <Label Text="Добавление студента (Files)"
+                   FontSize="20" FontAttributes="Bold"
+                   HorizontalOptions="Center" Margin="0,0,0,20"/>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Фамилия:" FontAttributes="Bold"/>
+                    <Entry x:Name="lastName" Placeholder="Введите фамилию"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Имя:" FontAttributes="Bold"/>
+                    <Entry x:Name="firstName" Placeholder="Введите имя"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Отчество:" FontAttributes="Bold"/>
+                    <Entry x:Name="middleName" Placeholder="Введите отчество"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Дата рождения:" FontAttributes="Bold"/>
+                    <DatePicker x:Name="dateBirth" DateSelected="dateBirth_DateSelected"/>
+                </StackLayout>
+            </Frame>
+
+            <Label x:Name="age" Text="Возраст - 18" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,10"/>
+
+            <Button Text="Сохранить в файл" Clicked="SaveToFile_Clicked"
+                    BackgroundColor="LightBlue" Margin="0,10" TextColor="Black"/>
+
+            <Button Text="Загрузить из файла" Clicked="LoadFromFile_Clicked"
+                    BackgroundColor="LightGreen" Margin="0,10" TextColor="Black"/>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

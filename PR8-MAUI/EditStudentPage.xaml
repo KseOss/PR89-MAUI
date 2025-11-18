@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PR8_MAUI.EditStudentPage"
+             Title="Редактирование студента">
+
+    <ScrollView>
+        <StackLayout Padding="20">
+            <Label Text="Редактирование данных студента" 
+                   FontSize="20" FontAttributes="Bold" 
+                   HorizontalOptions="Center" Margin="0,0,0,20"/>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Фамилия:" FontAttributes="Bold"/>
+                    <Entry x:Name="lastNameEntry" Placeholder="Введите фамилию"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Имя:" FontAttributes="Bold"/>
+                    <Entry x:Name="firstNameEntry" Placeholder="Введите имя"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Отчество:" FontAttributes="Bold"/>
+                    <Entry x:Name="middleNameEntry" Placeholder="Введите отчество"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Дата рождения:" FontAttributes="Bold"/>
+                    <DatePicker x:Name="birthDatePicker"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Пол:" FontAttributes="Bold"/>
+                    <Picker x:Name="genderPicker" Title="Выберите пол">
+                        <Picker.Items>
+                            <x:String>Мужской</x:String>
+                            <x:String>Женский</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Проживание и должность:" FontAttributes="Bold"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Нужно общежитие:" VerticalOptions="Center"/>
+                        <Switch x:Name="dormitorySwitch" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Является старостой:" VerticalOptions="Center"/>
+                        <Switch x:Name="monitorSwitch" HorizontalOptions="End"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Оценки:" FontAttributes="Bold"/>
+
+                    <StackLayout Orientation="Horizontal" Margin="0,5">
+                        <Label Text="Математика:" VerticalOptions="Center"/>
+                        <Label x:Name="mathGradeLabel" Text="5" VerticalOptions="Center" Margin="10,0"/>
+                        <Stepper x:Name="mathStepper" Minimum="2" Maximum="5" Increment="1" Value="5"
+                               ValueChanged="MathStepper_ValueChanged" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Margin="0,5">
+                        <Label Text="Программирование:" VerticalOptions="Center"/>
+                        <Label x:Name="programmingGradeLabel" Text="5" VerticalOptions="Center" Margin="10,0"/>
+                        <Stepper x:Name="programmingStepper" Minimum="2" Maximum="5" Increment="1" Value="5"
+                               ValueChanged="ProgrammingStepper_ValueChanged" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal" Margin="0,5">
+                        <Label Text="Английский:" VerticalOptions="Center"/>
+                        <Label x:Name="englishGradeLabel" Text="5" VerticalOptions="Center" Margin="10,0"/>
+                        <Slider x:Name="englishSlider" Minimum="2" Maximum="5" Value="5"
+                               ValueChanged="EnglishSlider_ValueChanged" HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15" Margin="0,0,0,10">
+                <StackLayout>
+                    <Label Text="Дополнительная информация:" FontAttributes="Bold"/>
+                    <Editor x:Name="additionalInfoEditor" Placeholder="Хобби, увлечения..." 
+                           HeightRequest="100"/>
+                </StackLayout>
+            </Frame>
+
+            <Button Text="Сохранить изменения" Clicked="SaveChanges_Clicked" 
+                    BackgroundColor="LightGreen" Margin="0,20" TextColor="Black" FontAttributes="Bold"/>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

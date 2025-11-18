@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="PR8_MAUI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PR8_MAUI"
+    Title="PR89_MAUI">
+
+    <TabBar>
+        <Tab Title="Основное приложение">
+            <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+        <Tab Title="Список студентов">
+            <ShellContent Route="StudentList" ContentTemplate="{DataTemplate local:StudentListPage}" />
+        </Tab>
+        <Tab Title="Preferences">
+            <ShellContent Route="Preferences" ContentTemplate="{DataTemplate local:MainPagePreferences}" />
+        </Tab>
+        <Tab Title="Files">
+            <ShellContent Route="Files" ContentTemplate="{DataTemplate local:MainPageFiles}" />
+        </Tab>
+    </TabBar>
+
+</Shell>

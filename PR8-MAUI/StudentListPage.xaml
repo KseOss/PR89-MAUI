@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PR8_MAUI.StudentListPage"
+             Title="Список студентов">
+
+    <StackLayout>
+        <Label Text="Список студентов" FontSize="20" FontAttributes="Bold" 
+               HorizontalOptions="Center" Margin="0,10"/>
+
+        <ListView x:Name="studentsListView" ItemSelected="StudentsListView_ItemSelected" 
+                  HeightRequest="500" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Margin="10,5" BackgroundColor="White" BorderColor="LightGray">
+                            <StackLayout Padding="10" Orientation="Horizontal">
+                                <Image Source="{Binding Photo}" Aspect="AspectFill" 
+                                       WidthRequest="60" HeightRequest="60"/>
+                                <StackLayout Margin="10,0" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding FullName}" FontAttributes="Bold" FontSize="16"/>
+                                    <Label Text="{Binding AgeInfo}" FontSize="12" TextColor="Gray"/>
+                                    <Label Text="{Binding GradesInfo}" FontSize="12" TextColor="Gray"/>
+                                    <Label Text="{Binding DormitoryInfo}" FontSize="12" TextColor="Blue"/>
+                                    <Label Text="{Binding MonitorInfo}" FontSize="12" TextColor="DarkOrange"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Кнопки управления -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10">
+            <Button x:Name="editButton" Text="Редактировать" Clicked="EditButton_Clicked" 
+                    BackgroundColor="LightBlue" Margin="5" IsEnabled="False" TextColor="Black"/>
+            <Button x:Name="deleteButton" Text="Удалить" Clicked="DeleteButton_Clicked" 
+                    BackgroundColor="LightCoral" Margin="5" IsEnabled="False" TextColor="Black"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,79 @@
+using Microsoft.Maui.Controls;
+namespace PR8_MAUI;
+
+public partial class EditStudentPage : ContentPage
+{
+    private Student student;
+    public EditStudentPage(Student studentToEdit)
+    {
+		InitializeComponent(); 
+        student = studentToEdit;
+        LoadStudentData();
+    }
+
+    private void LoadStudentData()
+    {
+        lastNameEntry.Text = student.LastName;
+        firstNameEntry.Text = student.FirstName;
+        middleNameEntry.Text = student.MiddleName;
+        birthDatePicker.Date = student.BirthDate;
+        genderPicker.SelectedItem = student.Gender;
+        dormitorySwitch.IsToggled = student.NeedsDormitory;
+        monitorSwitch.IsToggled = student.IsMonitor;
+        mathStepper.Value = double.Parse(student.MathGrade);
+        programmingStepper.Value = double.Parse(student.ProgrammingGrade);
+        englishSlider.Value = double.Parse(student.EnglishGrade);
+        additionalInfoEditor.Text = student.AdditionalInfo;
+    }
+
+    private void MathStepper_ValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        mathGradeLabel.Text = mathStepper.Value.ToString("0");
+    }
+
+    private void ProgrammingStepper_ValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        programmingGradeLabel.Text = programmingStepper.Value.ToString("0");
+    }
+
+    private void EnglishSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        englishGradeLabel.Text = englishSlider.Value.ToString("0.0");
+    }
+
+    private async void SaveChanges_Clicked(object sender, System.EventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(lastNameEntry.Text) || string.IsNullOrWhiteSpace(firstNameEntry.Text))
+        {
+            await DisplayAlert("Ошибка", "Заполните обязательные поля (Фамилия и Имя)", "OK");
+            return;
+        }
+
+        student.LastName = lastNameEntry.Text;
+        student.FirstName = firstNameEntry.Text;
+        student.MiddleName = middleNameEntry.Text;
+        student.BirthDate = birthDatePicker.Date;
+        student.Age = CalculateAge(birthDatePicker.Date);
+        student.Gender = genderPicker.SelectedItem?.ToString() ?? "Не указан";
+        student.NeedsDormitory = dormitorySwitch.IsToggled;
+        student.IsMonitor = monitorSwitch.IsToggled;
+        student.MathGrade = mathGradeLabel.Text;
+        student.ProgrammingGrade = programmingGradeLabel.Text;
+        student.EnglishGrade = englishGradeLabel.Text;
+        student.AdditionalInfo = additionalInfoEditor.Text;
+
+        await DisplayAlert("Успех", "Данные студента обновлены", "OK");
+        await Navigation.PopAsync();
+    }
+
+    private int CalculateAge(DateTime birthDate)
+    {
+        int age = DateTime.Now.Year - birthDate.Year;
+        if (DateTime.Now.Month < birthDate.Month ||
+            (DateTime.Now.Month == birthDate.Month && DateTime.Now.Day < birthDate.Day))
+        {
+            age--;
+        }
+        return age;
+    }
+}
