@@ -1,52 +1,80 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PR8_MAUI.Views.UserProfilePage"
-             Title="Профиль пользователя">
+             x:Class="PR8_MAUI.Views.EditUserPage"
+             Title="Редактирование профиля">
     
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10">
-            <Label Text="Ваш профиль" 
-                   FontSize="24" 
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Label Text="Редактирование профиля" 
+                   FontSize="22" 
                    FontAttributes="Bold" 
-                   HorizontalOptions="Center"
-                   Margin="0,0,0,10"/>
+                   HorizontalOptions="Center"/>
             
-            <!-- Информация о пользователе -->
-            <Frame BackgroundColor="#F0F0F0" Padding="15">
+            <!-- Поле для имени -->
+            <Frame BackgroundColor="#F5F5F5" Padding="15">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="Имя:" FontAttributes="Bold"/>
-                    <Label x:Name="UserNameLabel" FontSize="16"/>
+                    <Entry x:Name="UserNameEntry" 
+                           Placeholder="Введите ваше имя"
+                           TextChanged="OnTextChanged"/>
                 </VerticalStackLayout>
             </Frame>
 
-            <Frame BackgroundColor="#F0F0F0" Padding="15">
+            <!-- Поле для email -->
+            <Frame BackgroundColor="#F5F5F5" Padding="15">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="Email:" FontAttributes="Bold"/>
-                    <Label x:Name="UserEmailLabel" FontSize="16"/>
+                    <Entry x:Name="UserEmailEntry" 
+                           Placeholder="Введите email"
+                           Keyboard="Email"
+                           TextChanged="OnTextChanged"/>
                 </VerticalStackLayout>
             </Frame>
 
-            <Frame BackgroundColor="#F0F0F0" Padding="15">
+            <!-- Поле для телефона -->
+            <Frame BackgroundColor="#F5F5F5" Padding="15">
                 <VerticalStackLayout Spacing="5">
                     <Label Text="Телефон:" FontAttributes="Bold"/>
-                    <Label x:Name="UserPhoneLabel" FontSize="16"/>
+                    <Entry x:Name="UserPhoneEntry" 
+                           Placeholder="Введите телефон"
+                           Keyboard="Telephone"
+                           TextChanged="OnTextChanged"/>
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Кнопки управления -->
-            <Button Text="Редактировать профиль" 
-                    Clicked="OnEditProfileClicked"
-                    BackgroundColor="#2196F3" 
-                    TextColor="White" 
-                    Margin="0,20,0,10"
-                    HeightRequest="50"/>
+            <!-- Поле для пароля (опционально) -->
+            <Frame BackgroundColor="#F5F5F5" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Новый пароль (необязательно):" FontAttributes="Bold"/>
+                    <Entry x:Name="UserPasswordEntry" 
+                           Placeholder="Введите новый пароль"
+                           IsPassword="True"
+                           TextChanged="OnTextChanged"/>
+                </VerticalStackLayout>
+            </Frame>
 
-            <Button Text="Выйти" 
-                    Clicked="OnLogoutClicked"
-                    BackgroundColor="#F44336" 
-                    TextColor="White"
-                    HeightRequest="50"/>
+            <Label x:Name="ErrorLabel" 
+                   TextColor="Red" 
+                   HorizontalOptions="Center"
+                   IsVisible="False"/>
+
+            <!-- Кнопки -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,20">
+                <Button Grid.Column="0" 
+                        Text="Сохранить" 
+                        Clicked="OnSaveClicked"
+                        BackgroundColor="#4CAF50" 
+                        TextColor="White"
+                        HeightRequest="50"/>
+                        
+                <Button Grid.Column="1" 
+                        Text="Отмена" 
+                        Clicked="OnCancelClicked"
+                        BackgroundColor="#9E9E9E" 
+                        TextColor="White"
+                        HeightRequest="50"/>
+            </Grid>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
@@ -56,9 +84,11 @@ using PR8_MAUI.Models;
 
 namespace PR8_MAUI.Views
 {
-    public partial class UserProfilePage : ContentPage
+    public partial class EditUserPage : ContentPage
     {
-        public UserProfilePage()
+        private bool _isDataChanged = false;
+
+        public EditUserPage()
         {
             InitializeComponent();
             LoadUserData();
@@ -66,19 +96,86 @@ namespace PR8_MAUI.Views
 
         private void LoadUserData()
         {
-            UserNameLabel.Text = AppData.UserName;
-            UserEmailLabel.Text = AppData.UserEmail;
-            UserPhoneLabel.Text = AppData.UserPhone;
+            UserNameEntry.Text = AppData.UserName;
+            UserEmailEntry.Text = AppData.UserEmail;
+            UserPhoneEntry.Text = AppData.UserPhone;
+            UserPasswordEntry.Text = ""; // Пароль не показываем
+            _isDataChanged = false;
         }
 
-        private async void OnEditProfileClicked(object sender, EventArgs e)
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            await Navigation.PushAsync(new EditUserPage());
+            _isDataChanged = true;
         }
 
-        private async void OnLogoutClicked(object sender, EventArgs e)
+        private async void OnSaveClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new LoginPage());
+            // Проверка валидности данных
+            if (string.IsNullOrWhiteSpace(UserNameEntry.Text))
+            {
+                ShowError("Имя не может быть пустым");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(UserEmailEntry.Text))
+            {
+                ShowError("Email не может быть пустым");
+                return;
+            }
+
+            // Сохраняем данные
+            AppData.UserName = UserNameEntry.Text.Trim();
+            AppData.UserEmail = UserEmailEntry.Text.Trim();
+            AppData.UserPhone = UserPhoneEntry.Text.Trim();
+
+            // Если указан новый пароль, сохраняем его
+            if (!string.IsNullOrWhiteSpace(UserPasswordEntry.Text))
+            {
+                AppData.UserPassword = UserPasswordEntry.Text;
+            }
+
+            await DisplayAlert("Успех", "Данные профиля сохранены", "OK");
+            await Navigation.PopAsync(); // Возвращаемся на предыдущую страницу
+        }
+
+        private async void OnCancelClicked(object sender, EventArgs e)
+        {
+            if (_isDataChanged)
+            {
+                bool answer = await DisplayAlert("Подтверждение", 
+                    "У вас есть несохраненные изменения. Вы уверены, что хотите выйти?", 
+                    "Да", "Нет");
+                
+                if (!answer)
+                    return;
+            }
+            
+            await Navigation.PopAsync();
+        }
+
+        private void ShowError(string message)
+        {
+            ErrorLabel.Text = message;
+            ErrorLabel.IsVisible = true;
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            // Обработка кнопки "Назад" на Android
+            if (_isDataChanged)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    bool answer = await DisplayAlert("Подтверждение", 
+                        "У вас есть несохраненные изменения. Вы уверены, что хотите выйти?", 
+                        "Да", "Нет");
+                    
+                    if (answer)
+                        await Navigation.PopAsync();
+                });
+                return true; // Отменяем стандартное поведение
+            }
+            return base.OnBackButtonPressed();
         }
     }
 }
