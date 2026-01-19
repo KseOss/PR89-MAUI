@@ -1,3 +1,5 @@
+System.FormatException: "The input string '4.5' was not in a correct format."
+
 using Microsoft.Maui.Controls;
 using PR8_MAUI.Models;
 namespace PR8_MAUI;
