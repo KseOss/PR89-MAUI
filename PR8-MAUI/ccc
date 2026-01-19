@@ -1,1 +1,84 @@
-d
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PR8_MAUI.Views.UserProfilePage"
+             Title="Профиль пользователя">
+    
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+            <Label Text="Ваш профиль" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,10"/>
+            
+            <!-- Информация о пользователе -->
+            <Frame BackgroundColor="#F0F0F0" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Имя:" FontAttributes="Bold"/>
+                    <Label x:Name="UserNameLabel" FontSize="16"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Email:" FontAttributes="Bold"/>
+                    <Label x:Name="UserEmailLabel" FontSize="16"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame BackgroundColor="#F0F0F0" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Телефон:" FontAttributes="Bold"/>
+                    <Label x:Name="UserPhoneLabel" FontSize="16"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Кнопки управления -->
+            <Button Text="Редактировать профиль" 
+                    Clicked="OnEditProfileClicked"
+                    BackgroundColor="#2196F3" 
+                    TextColor="White" 
+                    Margin="0,20,0,10"
+                    HeightRequest="50"/>
+
+            <Button Text="Выйти" 
+                    Clicked="OnLogoutClicked"
+                    BackgroundColor="#F44336" 
+                    TextColor="White"
+                    HeightRequest="50"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+
+using Microsoft.Maui.Controls;
+using PR8_MAUI.Models;
+
+namespace PR8_MAUI.Views
+{
+    public partial class UserProfilePage : ContentPage
+    {
+        public UserProfilePage()
+        {
+            InitializeComponent();
+            LoadUserData();
+        }
+
+        private void LoadUserData()
+        {
+            UserNameLabel.Text = AppData.UserName;
+            UserEmailLabel.Text = AppData.UserEmail;
+            UserPhoneLabel.Text = AppData.UserPhone;
+        }
+
+        private async void OnEditProfileClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new EditUserPage());
+        }
+
+        private async void OnLogoutClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new LoginPage());
+        }
+    }
+}
