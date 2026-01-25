@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PR8_MAUI.Pages.ProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Профиль">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="14">
+
+            <Label Text="Основная информация (только просмотр)" FontSize="22"/>
+
+            <Frame Padding="16">
+                <VerticalStackLayout Spacing="10">
+
+                    <HorizontalStackLayout>
+                        <Label Text="ФИО:" FontAttributes="Bold" WidthRequest="90"/>
+                        <Label x:Name="FullNameLabel"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Email:" FontAttributes="Bold" WidthRequest="90"/>
+                        <Label x:Name="EmailLabel"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Телефон:" FontAttributes="Bold" WidthRequest="90"/>
+                        <Label x:Name="PhoneLabel"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Группа:" FontAttributes="Bold" WidthRequest="90"/>
+                        <Label x:Name="GroupLabel"/>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <Button Text="Редактировать данные" Clicked="OnEditClicked"/>
+            <Button Text="Сменить ПИН" Clicked="OnChangePinClicked"/>
+            <Button Text="Выйти" Clicked="OnLogoutClicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

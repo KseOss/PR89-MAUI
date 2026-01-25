@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PR8_MAUI.Pages.PinAuthPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Вход">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="24" RowSpacing="18">
+
+        <VerticalStackLayout Grid.Row="0" Spacing="6">
+            <Label Text="Введите ПИН-код" FontSize="24" HorizontalOptions="Center"/>
+            <Label x:Name="DotsLabel" Text="○ ○ ○" FontSize="28" HorizontalOptions="Center"/>
+            <Label x:Name="StatusLabel" Text="" FontSize="14" TextColor="Red" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <Grid Grid.Row="1"
+              RowDefinitions="Auto,Auto,Auto,Auto"
+              ColumnDefinitions="*,*,*"
+              RowSpacing="12"
+              ColumnSpacing="12">
+
+            <!-- 1 2 3 -->
+            <Button Text="1" Clicked="OnDigitClicked" Grid.Row="0" Grid.Column="0"/>
+            <Button Text="2" Clicked="OnDigitClicked" Grid.Row="0" Grid.Column="1"/>
+            <Button Text="3" Clicked="OnDigitClicked" Grid.Row="0" Grid.Column="2"/>
+
+            <!-- 4 5 6 -->
+            <Button Text="4" Clicked="OnDigitClicked" Grid.Row="1" Grid.Column="0"/>
+            <Button Text="5" Clicked="OnDigitClicked" Grid.Row="1" Grid.Column="1"/>
+            <Button Text="6" Clicked="OnDigitClicked" Grid.Row="1" Grid.Column="2"/>
+
+            <!-- 7 8 9 -->
+            <Button Text="7" Clicked="OnDigitClicked" Grid.Row="2" Grid.Column="0"/>
+            <Button Text="8" Clicked="OnDigitClicked" Grid.Row="2" Grid.Column="1"/>
+            <Button Text="9" Clicked="OnDigitClicked" Grid.Row="2" Grid.Column="2"/>
+
+            <!-- отпечаток / 0 / backspace -->
+            <Button Text="🔒" Clicked="OnFingerprintClicked" Grid.Row="3" Grid.Column="0"/>
+            <Button Text="0" Clicked="OnDigitClicked" Grid.Row="3" Grid.Column="1"/>
+            <Button Text="⌫" Clicked="OnBackspaceClicked" Grid.Row="3" Grid.Column="2"/>
+
+        </Grid>
+
+        <Label Grid.Row="2"
+               Text="ПИН по заданию: 123"
+               HorizontalOptions="Center"
+               Opacity="0.6"/>
+    </Grid>
+</ContentPage>

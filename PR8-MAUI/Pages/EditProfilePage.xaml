@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PR8_MAUI.Pages.EditProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Редактирование">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="12">
+
+            <Label Text="Редактирование данных" FontSize="22"/>
+
+            <Entry x:Name="FullNameEntry" Placeholder="ФИО"/>
+            <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email"/>
+            <Entry x:Name="PhoneEntry" Placeholder="Телефон" Keyboard="Telephone"/>
+            <Entry x:Name="GroupEntry" Placeholder="Группа"/>
+
+            <Button Text="Сохранить" Clicked="OnSaveClicked"/>
+            <Button Text="Отмена" Clicked="OnCancelClicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

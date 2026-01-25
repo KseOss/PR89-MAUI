@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PR8_MAUI.Pages.ChangePinPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Смена ПИН">
+
+    <VerticalStackLayout Padding="24" Spacing="12">
+        <Label Text="Сменить ПИН" FontSize="22"/>
+
+        <Entry x:Name="OldPinEntry" Placeholder="Старый ПИН" IsPassword="True" Keyboard="Numeric"/>
+        <Entry x:Name="NewPinEntry" Placeholder="Новый ПИН (3 цифры)" IsPassword="True" Keyboard="Numeric"/>
+        <Entry x:Name="RepeatPinEntry" Placeholder="Повторите новый ПИН" IsPassword="True" Keyboard="Numeric"/>
+
+        <Label x:Name="InfoLabel" Text="" TextColor="Red"/>
+
+        <Button Text="Сохранить" Clicked="OnSaveClicked"/>
+    </VerticalStackLayout>
+</ContentPage>
